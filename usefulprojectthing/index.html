@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101821">
+  <title>FrameForge — MP4 to RGB Binary</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="FrameForge home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>frameforge<span class="brand-dot">.</span></span>
+      </a>
+      <span class="local-badge"><span class="status-dot"></span> Runs locally in your browser</span>
+    </header>
+
+    <section class="intro" id="top">
+      <p class="eyebrow"><span class="eyebrow-line"></span> VIDEO TOOLKIT / 01</p>
+      <h1>Turn video into<br><span>raw pixels.</span></h1>
+      <p class="intro-copy">Convert an MP4 into a stream of RGB frame data. Choose the output size and frame rate, then download your binary file.</p>
+    </section>
+
+    <section class="workspace" aria-label="MP4 conversion settings">
+      <div class="settings-column">
+        <div class="section-heading"><span class="step-number">01</span><div><h2>Choose a video</h2><p>Your file stays on this device.</p></div></div>
+        <label class="dropzone" id="dropzone" for="video-file" tabindex="0">
+          <input id="video-file" type="file" accept="video/mp4,video/*,.mp4">
+          <span class="upload-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="drop-title" id="file-label">Drop a video here</span>
+          <span class="drop-subtitle">or <span>browse files</span> · MP4 and browser-supported video</span>
+        </label>
+
+        <div class="section-heading output-heading"><span class="step-number">02</span><div><h2>Output settings</h2><p>Raw RGB, no header or compression.</p></div></div>
+        <div class="settings-grid">
+          <label class="field"><span>Width <small>px</small></span><input id="width" type="number" min="1" max="4096" value="640" inputmode="numeric"></label>
+          <label class="field"><span>Height <small>px</small></span><input id="height" type="number" min="1" max="4096" value="480" inputmode="numeric"></label>
+          <label class="field field-wide"><span>Target frame rate <small>fps</small></span><input id="fps" type="number" min="1" max="120" value="30" inputmode="numeric"></label>
+        </div>
+
+        <div class="format-note"><span class="info-icon" aria-hidden="true">i</span><p>Each frame is resized and written as packed <strong>RGB24</strong> bytes, in row order. The file contains no metadata.</p></div>
+        <button class="convert-button" id="convert-button" type="button" disabled>
+          <span>Convert to .bin</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m0 0-4.5-4.5M15 10l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="cancel-button" id="cancel-button" type="button" hidden>Cancel conversion</button>
+      </div>
+
+      <aside class="preview-column" aria-label="Video preview and conversion progress">
+        <div class="preview-topline"><span>PREVIEW</span><span class="preview-state" id="preview-state">WAITING FOR FILE</span></div>
+        <div class="preview-frame" id="preview-frame">
+          <video id="video-preview" playsinline controls hidden></video>
+          <div class="empty-preview" id="empty-preview"><span class="play-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m9 6 10 6-10 6V6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span>Your video preview will appear here</span></div>
+          <span class="duration-chip" id="duration-chip" hidden>—</span>
+        </div>
+        <div class="video-meta" id="video-meta"><span>No video selected</span><span>— × —</span></div>
+        <div class="progress-panel" aria-live="polite">
+          <div class="progress-line"><span id="status-text">Ready when you are</span><span id="progress-percent">0%</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Conversion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track"><span id="progress-fill"></span></div>
+          <p id="progress-detail">Select a video to begin.</p>
+        </div>
+        <a class="download-link" id="download-link" hidden download="video-rgb24.bin"><span>Download binary file</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14v2a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </aside>
+    </section>
+
+    <footer><span>FRAMEFORGE <span class="footer-separator">/</span> MP4 → RGB24</span><span>All processing happens on your device.</span></footer>
+  </main>
+</body>
+</html>
